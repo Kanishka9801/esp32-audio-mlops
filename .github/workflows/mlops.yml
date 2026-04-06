@@ -1,0 +1,44 @@
+name: TinyMLOps Pipeline
+
+# Trigger the pipeline every time code is pushed to the main branch
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-convert:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Get the repository code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Set up Python
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. Install the required AI libraries
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install tensorflow librosa scikit-learn matplotlib seaborn joblib mlflow
+
+    # 4. Train the Model (This generates model.tflite)
+    - name: Train AI Model
+      run: python train.py
+
+    # 5. Convert to C++ (This generates model.cc)
+    - name: Convert TFLite to C++ Array
+      run: python convert_to_cpp.py
+
+    # 6. Save the outputs so you can download them!
+    - name: Upload ESP32 Model Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: esp-models
+        path: |
+          model.tflite
+          esp32_firmware/src/model.cc
