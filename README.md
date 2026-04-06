@@ -1,1 +1,2 @@
 # esp32-audio-mlops
+[![TinyMLOps Pipeline](https://github.com/Kanishka9801/esp32-audio-mlops/actions/workflows/mlops.yml/badge.svg)](https://github.com/Kanishka9801/esp32-audio-mlops/actions/workflows/mlops.yml)
