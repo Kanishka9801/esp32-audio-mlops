@@ -15,7 +15,7 @@ import mlflow
 
 # 1. SETUP & PATHS
 DATA_PATH = "dataset"
-mlflow.set_experiment("ESP32_Audio_Threat_Detection")
+mlflow.set_experiment("ESP32_TinyMLOps_Pipeline")
 
 # --- FUNCTIONS ---
 def augment_audio(y, sr):
